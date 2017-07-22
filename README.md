@@ -14,10 +14,10 @@ Edit `config.json` file.
 
 ```js
 {
-  "domain": "josepedrodias.com", // domain to scrap
+  "domain": "pixels.camp", // domain to scrap
   "userAgent": "", // user agent to set (TODO)
   "resolution": [800, 600], // screen resolution to use
-  "pages": ["http://josepedrodias.com/"] // initial pages (kinda like sitemap.xml)
+  "pages": ["https://pixels.camp/"] // initial pages (kinda like sitemap.xml)
 }
 ```
 
@@ -68,7 +68,7 @@ Notice this h1 and afterH1, which are attempts to elect alternate titles and des
 
 * investigate how googlebot determines page loaded or alternate clever approach
 * check if links scrapped are as naive as ours (`<a>`s on page body)
-* improve path processing - discard hashes and support #! paths
+* improve path processing - support #! paths
 * (less relevant) map robots.txt and sitemap.xml to config.json
 
 

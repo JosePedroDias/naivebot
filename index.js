@@ -3,6 +3,10 @@ const Nightmare = require("nightmare");
 
 const CFG = require("./config.json");
 
+const hasDomainRgx = new RegExp(
+  "^https?://" + CFG.domain.replace(/\\./g, "\\.")
+);
+
 function saveFile(filename, data) {
   return new Promise(function(resolve, reject) {
     fs.writeFile(filename, data, function(err) {
@@ -103,7 +107,7 @@ function indexFollowCriteria({ nightmare, o, state }) {
 
 // TODO OVERRIDE THIS IF YOU NEED IT
 function atPageStart({ nightmare, o, state }) {
-  Promise.resolve({ nightmare, o, state });
+  return Promise.resolve({ nightmare, o, state });
 }
 
 function crawlPage({ nightmare, o, state }) {
@@ -123,7 +127,8 @@ function crawlPage({ nightmare, o, state }) {
         }) {
           if (follow) {
             o.links.forEach(function(href) {
-              if (href.indexOf(CFG.domain) === -1) {
+              href = href.split("#")[0];
+              if (!hasDomainRgx.test(href)) {
                 return; // don't scrap away from domain
               }
               if (href.indexOf("/product/") !== -1) {
